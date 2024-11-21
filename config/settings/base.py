@@ -69,6 +69,7 @@ LOCAL_APPS = [
     "users",
     "core",
     "core_settings",
+    "django_celery_beat",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS + WAGTAIL
