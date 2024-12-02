@@ -63,7 +63,10 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "compressor",
+    "wagtailautocomplete"
+]
 
 LOCAL_APPS = [
     "users",
@@ -171,6 +174,8 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
+
+STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 
 # MEDIA
 # ------------------------------------------------------------------------------
