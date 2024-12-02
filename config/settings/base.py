@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import environ
 import os
+
+from datetime import timedelta
 from pathlib import Path
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -65,7 +67,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "compressor",
-    "wagtailautocomplete"
+    "wagtailautocomplete",
 ]
 
 LOCAL_APPS = [
@@ -258,9 +260,27 @@ CELERY_WORKER_SEND_TASK_EVENTS = True
 CELERY_SEND_TASK_SENT_EVENT = True
 CELERYD_SEND_EVENTS = True
 CE_BUCKETS=1,2.5,5,10,30,60,300,600,900,1800
+
 # Celery Results
 # ------------------------------------------------------------------------------
 # https: // django-celery-results.readthedocs.io/en/latest/getting_started.html
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_CACHE_BACKEND = "django-cache"
 CELERY_RESULT_EXTENDED = True
+
+# django rest-framework
+# ------------------------------------------------------------------------------
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": env.int("DRF_PAGE_SIZE", default=10),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+# JWT
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),  # na doc está JWT mas pode mudar pra Bearer.
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    # "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+}
